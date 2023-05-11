@@ -67,16 +67,37 @@ exports.up = function(knex) {
         .inTable('suite_rent')
         .onUpdate('CASCADE')
         .onDelete('CASCADE');
-      });
+      })
 
+
+     .createTable('user', (table) => {
+      table.increments('id').primary();
+      table.string('tenant_name').notNullable();
+      table.string('email').notNullable().unique();
+      table.string('password').notNullable();
+
+      table
+        .foreign('tenant_name')
+        .references('tenant_name')
+        .inTable('tenant')
+        .onUpdate('CASCADE')
+        .onDelete('CASCADE');
+      
+      table
+        .foreign('email')
+        .references('email')
+        .inTable('tenant')
+        .onUpdate('CASCADE')
+        .onDelete('CASCADE');
+
+  });
+}; 
+
+
+exports.down = function (knex) {
+  
+};
       
 
-};
 
-/**
- * @param { import("knex").Knex } knex
- * @returns { Promise<void> }
- */
-exports.down = function(knex) {
-    
-};
+

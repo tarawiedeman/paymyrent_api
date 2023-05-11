@@ -1,3 +1,6 @@
+
+const bcrypt = require('bcryptjs');
+
 /**
  * @param { import("knex").Knex } knex
  * @returns { Promise<void> }
@@ -91,14 +94,14 @@ await knex('suite').del();
       {
         id: 5,
         suite_id: 12,
-        tenant_name: "Mr.Bean",
-        email:"mrbean@gmail.com",
+        tenant_name: "Talia Romanow",
+        email:"tromanow@gmail.com",
       },
       {
         id: 6,
         suite_id: 13,
-        tenant_name: "Donald Duck",
-        email:"dduck@gmail.com",
+        tenant_name: "Ally Duck",
+        email:"aduck@gmail.com",
       },
       {
         id: 7,
@@ -183,6 +186,53 @@ await knex('suite').del();
       amount:"$2300"
       }
      
+    
+  ]);
+
+  await knex('user').del();
+  await knex('user').insert([
+    {
+      id:1,
+      name: "Sally Rogers",
+      email:"sally@gmail.com",
+      password:bcrypt.hashSync("SallyRogers1")
+    },
+    {
+        id:2,
+        name: "Aaron Rogers",
+        email:"aaron@gmail.com",
+        password:bcrypt.hashSync("AaronRogers1")
+      },
+      {
+        id:3,
+        name: "Joe Jonas",
+        email:"jj@gmail.com",
+        password:bcrypt.hashSync("JoeJonas1")
+      },
+      {
+        id:4,
+        name: "Ashton Kutcher",
+        email:"ashton@gmail.com",
+        password:bcrypt.hashSync("AshtonKutcher1")
+      },
+      {
+        id:5,
+        name: "Talia Romanow",
+        email:"tromanow@gmail.com",
+        password:bcrypt.hashSync("TaliaRomanow1")
+      },
+      {
+        id:6,
+        name: "Ally Duck",
+        email:"aduck@gmail.com",
+        password:bcrypt.hashSync("AllyDuck1")
+      },
+      {
+        id:7,
+        name: "Tony Stark",
+        email:"tstark@gmail.com",
+        password:bcrypt.hashSync("TonyStark1")
+      },
     
   ]);
 
