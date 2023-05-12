@@ -93,7 +93,7 @@ router.get("/current", async (req, res) => {
         const decoded = jwt.verify(authToken, process.env.JWT_KEY);
 
         // Respond with the appropriate user data
-        const user = await knex('users').where({ id: decoded.id }).first();
+        const user = await knex('user').where({email: decoded.email}).first();
         delete user.password;
         res.json(user);
     } catch (error) {
