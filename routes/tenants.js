@@ -22,21 +22,19 @@ router.get("/", async (req,res) => {
         // Respond with the appropriate user data
         const tenant = await db("tenant")
         .join("tenant_rent", "tenant.id", "tenant_rent.tenant_id")
+        .join("suite_rent","suite_rent.id","tenant_rent.suite_rent_id")
+        .join("suite","suite.id","suite_rent.suite_id")
+        .join("property","property.id","suite.property_id")
         .where({ "tenant.email": decoded.email})
         .select(
           "tenant.id",
           "tenant.tenant_name",
           "tenant.email",
-          "tenant_rent.amount"
+          "tenant_rent.amount",
+          "property.property_name",
+          "suite.suite_name"
         )
-       
-// SELECT tenant.id, tenant.tenant_name,tenant.email,tenant_rent.amount,property.property_name,suite.suite_name
-// from tenant as tenant
-// join tenant_rent as tenant_rent on tenant.id = tenant_rent.tenant_id
-// join suite_rent as suite_rent on suite_rent.id = tenant_rent.suite_rent_id
-// join suite as suite on suite.id = suite_rent.suite_id
-// join property as property on property.id = suite.property_id
-// WHERE tenant.email="jj@gmail.com"
+      
 
 
         if (tenant.length > 0) {
@@ -44,7 +42,7 @@ router.get("/", async (req,res) => {
         } else {
           res
             .status(404)
-            .json({ error: `tenant email: {${req.params.tenantemail}} not found` });
+            .json({error: "tenant not found"});
           }
        }
         
