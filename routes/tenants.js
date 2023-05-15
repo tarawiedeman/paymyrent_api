@@ -5,7 +5,7 @@ const db = knex(knexConfig);
 const jwt = require('jsonwebtoken');
 
 //Back-End: API to GET tenants name and rent 
-router.get("/:tenantemail", async (req,res) => {
+router.get("/", async (req,res) => {
 
       if (!req.headers.authorization) {
         return res.status(401).send("Please login");
@@ -16,18 +16,7 @@ router.get("/:tenantemail", async (req,res) => {
     const authToken = authHeader.split(' ')[1];
     const decoded = jwt.verify(authToken, process.env.JWT_KEY);
 
-    // Verify the token
-    try {
-        console.log(decoded);
-        if (decoded.email != req.params.tenantemail){
-          return res.status(403).send("Invalid email");
-        }
-    }
-    catch (error) {
-      console.log(error);
-      return res.status(401).send("Invalid auth token");
-
-  }
+  
 
   try {
         // Respond with the appropriate user data
@@ -41,6 +30,15 @@ router.get("/:tenantemail", async (req,res) => {
           "tenant_rent.amount"
         )
        
+// SELECT tenant.id, tenant.tenant_name,tenant.email,tenant_rent.amount,property.property_name,suite.suite_name
+// from tenant as tenant
+// join tenant_rent as tenant_rent on tenant.id = tenant_rent.tenant_id
+// join suite_rent as suite_rent on suite_rent.id = tenant_rent.suite_rent_id
+// join suite as suite on suite.id = suite_rent.suite_id
+// join property as property on property.id = suite.property_id
+// WHERE tenant.email="jj@gmail.com"
+
+
         if (tenant.length > 0) {
           res.json(tenant);
         } else {
