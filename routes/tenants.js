@@ -32,7 +32,8 @@ router.get("/", async (req,res) => {
           "tenant.email",
           "tenant_rent.amount",
           "property.property_name",
-          "suite.suite_name"
+          "suite.suite_name",
+         
         )
       
 
@@ -47,6 +48,7 @@ router.get("/", async (req,res) => {
        }
         
     catch (error) {
+      console.log(error)
             res.status(500).json({ error: "cannot fetch the selected tenant" });
           }
      
