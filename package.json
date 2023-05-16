@@ -7,8 +7,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node --watch server.js",
     "nodemon": "nodemon index.js",
-    "migrate": "knex migrate:latest",
-    "seed": "knex seed:run"
+    "migrate": "npx knex migrate:latest",
+    "seed": "npx knex seed:run"
   },
   "keywords": [],
   "author": "",
