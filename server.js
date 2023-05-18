@@ -1,24 +1,28 @@
-
-require('dotenv').config();
+require("dotenv").config();
 const knexConfig = require("./knexfile");
 const knex = require("knex")(knexConfig);
+const stripe = require("stripe")(
+  "sk_test_51N4qDkE0c7QvL51x3eiGG12vtxD8YoGhQ2hABYWZRLmpWl7QQOnG1csPGjxjwCH84BGQbtFVyrWvdRtJq4RKzmJa00kMdGegRM"
+);
+const cors = require("cors");
 
-
-// Create Express app and also allow for app PORT to be optionally specified by an environment variable
-const express = require('express');
-const cors = require('cors');
+const express = require("express");
 const app = express();
-const {PORT} = process.env;
-
-app.use(cors());
 app.use(express.json());
+app.use(cors());
+
+const { PORT } = process.env;
 
 const paymentsRoute = require("./routes/payments.js");
 const tenantsRoute = require("./routes/tenants.js");
+const usersRoute = require("./routes/users.js");
 
-app.use("/api/payments", paymentsRoute);
+app.use("/api/create-checkout", paymentsRoute);
 app.use("/api/tenants", tenantsRoute);
+app.use("/api/users", usersRoute);
 
-  app.listen(PORT, () => {
-    console.log(`running at http://localhost:${PORT}`);
-  });
+app.use(express.static("public"));
+
+app.listen(PORT, () => {
+  console.log(`running at http://localhost:${PORT}`);
+});

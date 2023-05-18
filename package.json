@@ -5,20 +5,23 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node --watch index.js",
+    "start": "node --watch server.js",
     "nodemon": "nodemon index.js",
-    "migrate": "knex migrate:latest",
-    "seed": "knex seed:run"
+    "migrate": "npx knex migrate:latest",
+    "seed": "npx knex seed:run"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "bcryptjs": "^2.4.3",
     "cors": "^2.8.5",
     "dotenv": "^16.0.3",
     "express": "^4.18.2",
+    "jsonwebtoken": "^9.0.0",
     "knex": "^2.4.2",
     "mysql": "^2.18.1",
+    "stripe": "^12.4.0",
     "uuid": "^9.0.0"
   },
   "devDependencies": {
