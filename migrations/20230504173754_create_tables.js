@@ -75,12 +75,12 @@ exports.up = function (knex) {
       table.string("email").notNullable().unique();
       table.string("password").notNullable();
 
-      // table
-      //   .foreign("tenant_name")
-      //   .references("tenant_name")
-      //   .inTable("tenant")
-      //   .onUpdate("CASCADE")
-      //   .onDelete("CASCADE");
+      table
+        .foreign("tenant_name")
+        .references("tenant_name")
+        .inTable("tenant")
+        .onUpdate("CASCADE")
+        .onDelete("CASCADE");
 
       table
         .foreign("email")
